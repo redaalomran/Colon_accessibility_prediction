@@ -4,7 +4,8 @@ import torch
 import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
 
-bins_df = pd.read_csv("labeled_colon_bins.csv")
+bins_df = pd.read_csv("data/labeled_colon_bins.csv", sep="\t")
+
 
 held_out_chrom = "chr1"
 
@@ -84,9 +85,9 @@ for epoch in range(epochs):
     print(f"Train Accuracy: {train_acc:.4f}")
     print(f"Test Accuracy: {test_acc:.4f}")
 
-torch.save(model.state_dict(), "simple_nn_model.pth")
-np.save("X_test.npy", X_test)
-np.save("y_test.npy", y_test)
+torch.save(model.state_dict(), "outputs/simple_nn_model.pth")
+np.save("outputs/X_test.npy", X_test)
+np.save("outputs/y_test.npy", y_test)
 
 all_probs = []
 all_preds = []
@@ -103,8 +104,8 @@ with torch.no_grad():
         all_preds.extend(preds.squeeze().numpy())
         all_labels.extend(yb.squeeze().numpy())
 
-np.save("probs.npy", np.array(all_probs))
-np.save("preds.npy", np.array(all_preds))
-np.save("labels.npy", np.array(all_labels))
+np.save("outputs/probs.npy", np.array(all_probs))
+np.save("outputs/preds.npy", np.array(all_preds))
+np.save("outputs/labels.npy", np.array(all_labels))
 
 print("\nTraining complete. Model and outputs saved.")
