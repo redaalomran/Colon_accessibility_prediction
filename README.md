@@ -1,10 +1,10 @@
 # Prediction of chromatin accessibility in colon cancer
 
 ## Project Overview:
-This project applies a deep learning model to predict chromatin accessibility in the humon genome using ChIP-seq signals of histone modifications and trascription factor bindings, based on data from the HTC116 cell line.
+This project applies a deep learning model to predict chromatin accessibility in the humon genome using ChIP-seq signals of histone markers and trascription factors, based on data from the HTC116 cell line.
 
 ## Rationale:
-Understanding which regions of the genome are accessible is key to identifying active regulatory elements like promoters and enhancers. These open regions are where important processes—like gene transcription—begin. Instead of measuring accessibility directly, which can be time-consuming and costly, this project uses patterns in histone modifications and transcription factor bindings to predict whether a given region is accessible. By training a deep learning model on known ATAC-seq data, we can not only make accessibility predictions but also explore which epigenetic features contribute most to chromatin openness.
+Understanding which regions of the genome are accessible is key to identifying active regulatory elements like promoters and enhancers. These open regions are where important processes—like gene transcription—begin. Instead of measuring accessibility directly, which can be time-consuming and costly, this project uses patterns in histone markers and transcription factors to predict whether a given region is accessible. By training a deep learning model on known ATAC-seq data, we can not only make accessibility predictions but also explore which epigenetic features contribute most to chromatin openness.
 
 ## Data used:
 All data used in the project are publicly availible from ENCODE and are all from the HCT116 cell line:
