@@ -1,6 +1,23 @@
 import numpy as np
 import pandas as pd
 import pyBigWig
+import os
+
+def generate_bins(chrom_sizes_path, output_path, bin_size=1000):
+    with open(chrom_sizes_path) as f, open(output_path, "w") as out:
+        for line in f:
+            chrom, size = line.strip().split("\t")
+            size = int(size)
+            for start in range(0, size, bin_size):
+                end = min(start + bin_size, size)
+                out.write(f"{chrom}\t{start}\t{end}\n")
+
+if os.path.exists("colon_1000bp_bins.bed"):
+    print("colon_1000bp_bins.bed already exists. Skipping generation.")
+else:
+    print("Generating 1000bp bins from hg38.chrom.sizes...")
+    generate_bins("hg38.chrom.sizes", "colon_1000bp_bins.bed")
+    print("Generation complete: colon_1000bp_bins.bed")
 
 bins_df = pd.read_csv("colon_1000bp_bins.bed", sep="\t", names=["chrom", "start", "end"])
 print("Total bins:", len(bins_df))
