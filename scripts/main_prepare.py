@@ -12,21 +12,21 @@ def generate_bins(chrom_sizes_path, output_path, bin_size=1000):
                 end = min(start + bin_size, size)
                 out.write(f"{chrom}\t{start}\t{end}\n")
 
-if os.path.exists("colon_1000bp_bins.bed"):
+if os.path.exists("data/colon_1000bp_bins.bed"):
     print("colon_1000bp_bins.bed already exists. Skipping generation.")
 else:
     print("Generating 1000bp bins from hg38.chrom.sizes...")
-    generate_bins("hg38.chrom.sizes", "colon_1000bp_bins.bed")
+    generate_bins("data/hg38.chrom.sizes", "data/colon_1000bp_bins.bed")
     print("Generation complete: colon_1000bp_bins.bed")
 
-bins_df = pd.read_csv("colon_1000bp_bins.bed", sep="\t", names=["chrom", "start", "end"])
+bins_df = pd.read_csv("data/colon_1000bp_bins.bed", sep="\t", names=["chrom", "start", "end"])
 print("Total bins:", len(bins_df))
 
-bw_H3K27ac = pyBigWig.open("ENCFF277XII_H3K27ac.bigWig")
-bw_H3K4me3 = pyBigWig.open("ENCFF213WKK_H3K4me3.bigWig")
-bw_H3K27me3 = pyBigWig.open("ENCFF457PEW_H3K27me3.bigWig")
-bw_CTCF = pyBigWig.open("ENCFF813QCX_CTCF.bigWig")
-bw_ATAC = pyBigWig.open("ENCFF624HRW_ATAC.bigWig")
+bw_H3K27ac = pyBigWig.open("data/ENCFF277XII_H3K27ac.bigWig")
+bw_H3K4me3 = pyBigWig.open("data/ENCFF213WKK_H3K4me3.bigWig")
+bw_H3K27me3 = pyBigWig.open("data/ENCFF457PEW_H3K27me3.bigWig")
+bw_CTCF = pyBigWig.open("data/ENCFF813QCX_CTCF.bigWig")
+bw_ATAC = pyBigWig.open("data/ENCFF624HRW_ATAC.bigWig")
 
 h3k27ac_vals = []
 h3k4me3_vals = []
@@ -87,4 +87,4 @@ bins_df["H3K27me3"] = h3k27me3_vals
 bins_df["CTCF"] = ctcf_vals
 bins_df["ATAC"] = atac_vals
 bins_df["label"] = (bins_df["ATAC"] > 0.5).astype(int)
-bins_df.to_csv("lableled_colon_bins.csv", sep="\t", index=False)
+bins_df.to_csv("data/lableled_colon_bins.csv", sep="\t", index=False)
