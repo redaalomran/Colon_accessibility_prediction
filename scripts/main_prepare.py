@@ -87,4 +87,4 @@ bins_df["H3K27me3"] = h3k27me3_vals
 bins_df["CTCF"] = ctcf_vals
 bins_df["ATAC"] = atac_vals
 bins_df["label"] = (bins_df["ATAC"] > 0.5).astype(int)
-bins_df.to_csv("data/lableled_colon_bins.csv", sep="\t", index=False)
+bins_df.to_csv("data/labeled_colon_bins.csv", sep="\t", index=False)
