@@ -127,7 +127,7 @@ python scripts/main_prepare.py
 python scripts/main_train.py
 ```
 ---
-### Model Evaluation – `main_evaluate.py`
+### Phase 3: Model Evaluation – `main_evaluate.py`
 
 - **Input**:
   - `probs.npy`, `preds.npy`, `labels.npy`
