@@ -7,7 +7,7 @@ This project applies a deep learning model to predict chromatin accessibility in
 Understanding which regions of the genome are accessible is key to identifying active regulatory elements like promoters and enhancers. These open regions are where important processes—like gene transcription—begin. Instead of measuring accessibility directly, which can be time-consuming and costly, this project uses patterns in histone markers and transcription factors to predict whether a given region is accessible. By training a deep learning model on known ATAC-seq data, we can not only make accessibility predictions but also explore which epigenetic features contribute most to chromatin openness.
 
 ## Data used:
-All data used in the project are publicly availible from ENCODE and are all from the HCT116 cell line:
+All datasets used in this project are publicly available from the ENCODE Project and originate from the HCT116 human colon cancer cell line:
 - Accessibility reference:
   - ATAC-seq (ENCFF624HRW)
 - Histone marks:
@@ -18,12 +18,12 @@ All data used in the project are publicly availible from ENCODE and are all from
   - CTCF (ENCFF813QCX)
 
 The bin coordinates:
-- colon_1000bp_bins.bed –  was generated using hg38.chrom.sizes file from UCSC Genome Browser.
+- colon_1000bp_bins.bed –  is generated using hg38.chrom.sizes file from UCSC Genome Browser.
 
 ## Workflow Overview:
 The project is structured into three main phases: data preparation, model training, and model evaluation.
 
-### Data Preparation – `main_prepare.py`
+### Phase 1: Data Preparation – `main_prepare.py`
 
 - **Input**:
   - `colon_1000bp_bins.bed`: defines 1000bp bins across the genome
@@ -86,13 +86,19 @@ cd ..
 curl -o data/hg38.chrom.sizes https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.chrom.sizes
 ```
 
-**4. Run the preparation code**
+**4. Install requirement**
+
+```bash
+pip install -r requirements.txt
+```
+
+**5. Run the preparation code**
 
 ```bash
 python scripts/main_prepare.py
 ```
 ---
-### Model Training – `main_train.py`
+### Phase 2: Model Training – `main_train.py`
 
 - **Input**:
   - `labeled_colon_bins.csv`
