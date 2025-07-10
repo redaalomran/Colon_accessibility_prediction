@@ -77,13 +77,13 @@ mv ENCFF213WKK.bigWig ENCFF213WKK_H3K4me3.bigWig
 mv ENCFF457PEW.bigWig ENCFF457PEW_H3K27me3.bigWig
 mv ENCFF813QCX.bigWig ENCFF813QCX_CTCF.bigWig
 mv ENCFF624HRW.bigWig ENCFF624HRW_ATAC.bigWig
+cd ..
 ```
 
 **3. Download human genome sizes file**
 
 ```bash
-wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.chrom.sizes -P data/
-cd ..
+curl -o data/hg38.chrom.sizes https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.chrom.sizes
 ```
 
 **4. Run the preparation code**
