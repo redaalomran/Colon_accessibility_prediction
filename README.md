@@ -71,6 +71,7 @@ Rename the files to match the filenames expected by the code.
 You can rename them manually or use the terminal commands below:
 
 ```bash
+cd data
 mv ENCFF277XII.bigWig ENCFF277XII_H3K27ac.bigWig
 mv ENCFF213WKK.bigWig ENCFF213WKK_H3K4me3.bigWig
 mv ENCFF457PEW.bigWig ENCFF457PEW_H3K27me3.bigWig
@@ -78,7 +79,14 @@ mv ENCFF813QCX.bigWig ENCFF813QCX_CTCF.bigWig
 mv ENCFF624HRW.bigWig ENCFF624HRW_ATAC.bigWig
 ```
 
-**3. Run the preparation code**
+**3. Download human genome sizes file**
+
+```bash
+wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.chrom.sizes -P data/
+cd ..
+```
+
+**4. Run the preparation code**
 
 ```bash
 python scripts/main_prepare.py
