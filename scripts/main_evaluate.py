@@ -11,9 +11,9 @@ from sklearn.metrics import (
     auc
 )
 
-all_probs = np.load("probs.npy")
-all_preds = np.load("preds.npy")
-all_labels = np.load("labels.npy")
+all_probs = np.load("outputs/probs.npy")
+all_preds = np.load("outputs/preds.npy")
+all_labels = np.load("outputs/labels.npy")
 
 # Confusion Matrix
 cm = confusion_matrix(all_labels, all_preds)
