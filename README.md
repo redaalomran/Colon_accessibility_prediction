@@ -14,8 +14,15 @@ All datasets used in this project are publicly available from the ENCODE Project
   - H3K27ac (ENCFF277XII)
   - H3K4me3 (ENCFF213WKK)
   - H3K27me3 (ENCFF457PEW)
+  - H3K9me3 (ENCFF063OHO)
+  - H3K9ac (ENCFF558LSB)
 - Transcriprion factor:
   - CTCF (ENCFF813QCX)
+  - ATF3 (ENCFF995NRA)
+  - CBX3 (ENCFF768ZFK)
+  - CEBPB (ENCFF439NGF)
+  - EGR1 (ENCFF132XZK)
+  - RAD21 (ENCFF027QAE)
 
 The bin coordinates:
 - colon_1000bp_bins.bed –  is generated using hg38.chrom.sizes file from UCSC Genome Browser.
@@ -31,7 +38,14 @@ The project is structured into three main phases: data preparation, model traini
     - H3K27ac
     - H3K4me3
     - H3K27me3
+    - H3K9me3
+    - H3K9ac
     - CTCF
+    - ATF3
+    - CBX3
+    - CEBPB
+    - EGR1
+    - RAD21
     - ATAC-seq (used for labeling)
 
 - **Process**:
@@ -60,13 +74,20 @@ After downloading, place all `.bigWig` files in the `data/` directory.
 
 Rename the files to match the filenames expected by the code.
 
-| Feature          | ENCODE File     | Rename to:                        |
-|------------------|----------------------|-----------------------------------|
-| **H3K27ac**      | `ENCFF277XII.bigWig` | `ENCFF277XII_H3K27ac.bigWig`      |
-| **H3K4me3**      | `ENCFF213WKK.bigWig` | `ENCFF213WKK_H3K4me3.bigWig`      |
-| **H3K27me3**     | `ENCFF457PEW.bigWig` | `ENCFF457PEW_H3K27me3.bigWig`     |
-| **CTCF**         | `ENCFF813QCX.bigWig` | `ENCFF813QCX_CTCF.bigWig`         |
-| **ATAC-seq**     | `ENCFF624HRW.bigWig` | `ENCFF624HRW_ATAC.bigWig`         |
+| **Feature**    | **ENCODE File**              | Rename to:                            |
+|----------------|------------------------------|----------------------------------------|
+| **H3K27ac**    | `ENCFF277XII.bigWig`         | `ENCFF277XII_H3K27ac.bigWig`          |
+| **H3K4me3**    | `ENCFF213WKK.bigWig`         | `ENCFF213WKK_H3K4me3.bigWig`          |
+| **H3K27me3**   | `ENCFF457PEW.bigWig`         | `ENCFF457PEW_H3K27me3.bigWig`         |
+| **H3K9me3**    | `ENCFF0630HO.bigWig`         | `ENCFF0630HO_H3K9me3.bigWig`          |
+| **H3K9ac**     | `ENCFF558LSB.bigWig`         | `ENCFF558LSB_H3K9ac.bigWig`           |
+| **CTCF**       | `ENCFF813QCX.bigWig`         | `ENCFF813QCX_CTCF.bigWig`             |
+| **ATF3**       | `ENCFF995NRA.bigWig`         | `ENCFF995NRA_ATF3.bigWig`             |
+| **CBX3**       | `ENCFF768ZFK.bigWig`         | `ENCFF768ZFK_CBX3.bigWig`             |
+| **CEBPB**      | `ENCFF439NGF.bigWig`         | `ENCFF439NGF_CEBPB.bigWig`            |
+| **EGR1**       | `ENCFF132X2ZK.bigWig`        | `ENCFF132X2ZK_EGR1.bigWig`            |
+| **RAD21**      | `ENCFF027QAE.bigWig`         | `ENCFF027QAE_RAD21.bigWig`            |
+| **ATAC-seq**   | `ENCFF624HRW.bigWig`         | `ENCFF624HRW_ATAC.bigWig`             |
 
 You can rename them manually or use the terminal commands below:
 
@@ -75,7 +96,14 @@ cd data
 mv ENCFF277XII.bigWig ENCFF277XII_H3K27ac.bigWig
 mv ENCFF213WKK.bigWig ENCFF213WKK_H3K4me3.bigWig
 mv ENCFF457PEW.bigWig ENCFF457PEW_H3K27me3.bigWig
+mv ENCFF0630HO.bigWig ENCFF0630HO_H3K9me3.bigWig
+mv ENCFF558LSB.bigWig ENCFF558LSB_H3K9ac.bigWig
 mv ENCFF813QCX.bigWig ENCFF813QCX_CTCF.bigWig
+mv ENCFF995NRA.bigWig ENCFF995NRA_ATF3.bigWig
+mv ENCFF768ZFK.bigWig ENCFF768ZFK_CBX3.bigWig
+mv ENCFF439NGF.bigWig ENCFF439NGF_CEBPB.bigWig
+mv ENCFF132X2ZK.bigWig ENCFF132X2ZK_EGR1.bigWig
+mv ENCFF027QAE.bigWig ENCFF027QAE_RAD21.bigWig
 mv ENCFF624HRW.bigWig ENCFF624HRW_ATAC.bigWig
 cd ..
 ```
@@ -108,7 +136,7 @@ python scripts/main_prepare.py
     - `chr1` is used as the **test set**
     - All other chromosomes as the **training set**
   - Features:
-    - H3K27ac, H3K4me3, H3K27me3, CTCF
+    - H3K27ac, H3K4me3, H3K27me3, H3K9me3, H3K9ac, CTCF, ATF3, CBX3, CEBPB, EGR1, RAD21
   - Target:
     - ATAC-seq-based binary accessibility
   - Model:
@@ -127,7 +155,7 @@ python scripts/main_prepare.py
 python scripts/main_train.py
 ```
 ---
-### Phase 3: Model Evaluation – `main_evaluate.py`
+### Phase 3.1: Model Evaluation – `main_evaluate.py`
 
 - **Input**:
   - `probs.npy`, `preds.npy`, `labels.npy`
@@ -143,4 +171,31 @@ python scripts/main_train.py
 **Run the evaluation code**
 ```bash
 python scripts/main_evaluate.py
+```
+
+### Phase 3.2: Feature Importance – `feature_impact.py`
+
+- **Input**:
+  - `simple_nn_model.pth`, `X_test.npy`, `y_test.npy`
+
+- **Process**:
+  - Loads the trained neural network model
+  - Defines a NumPy-based forward pass function for SHAP
+  - Uses SHAP's `KernelExplainer` on a background of 100 random samples from `X_test`
+  - Computes SHAP values on the first 100 test samples
+  - Plots:
+    - Global SHAP summary plot
+    - SHAP dependence plots for each feature
+
+- **Features analyzed**:
+  - H3K27ac, H3K4me3, H3K27me3, H3K9me3, H3K9ac, CTCF, ATF3, CBX3, CEBPB, EGR1, RAD21
+
+- **Output**:
+  - `shap_summary_plot.png` – SHAP dot plot showing global feature impact
+  - `shap_dependence_<feature>.png` – Individual dependence plots per feature
+
+### To run the SHAP-based feature interpretation:
+**Run the feature interpreter code**
+```bash
+python scripts/main_feature_importance.py
 ```
