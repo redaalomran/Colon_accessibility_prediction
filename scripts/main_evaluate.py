@@ -1,13 +1,23 @@
 import numpy as np
 import pandas as pd
+import pyBigWig
+import os
 import matplotlib.pyplot as plt
 import seaborn as sns
+import random
+import shap
+import torch
+import torch.nn as nn
+from torch.utils.data import TensorDataset, DataLoader
+from tqdm import tqdm
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import (
     confusion_matrix,
     classification_report,
     roc_auc_score,
     roc_curve,
     precision_recall_curve,
+    f1_score,
     auc
 )
 
@@ -38,6 +48,8 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+plt.savefig("outputs/roc_curve.png", dpi=300)
+plt.close()
 
 # Confusion Matrix Heatmap
 plt.figure(figsize=(5, 4))
@@ -47,10 +59,13 @@ plt.ylabel("Actual")
 plt.title("Confusion Matrix")
 plt.tight_layout()
 plt.show()
+plt.savefig("outputs/confusion_matrix.png", dpi=300)
+plt.close()
 
 # Precision-Recall Curve
 precision, recall, _ = precision_recall_curve(all_labels, all_probs)
 pr_auc = auc(recall, precision)
+
 plt.figure(figsize=(6, 4))
 plt.plot(recall, precision, label=f"AUC = {pr_auc:.4f}")
 plt.xlabel("Recall")
@@ -60,6 +75,8 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+plt.savefig("outputs/precision_recall_curve.png", dpi=300)
+plt.close()
 
 # Probability Distribution
 plt.figure(figsize=(6, 4))
@@ -69,3 +86,5 @@ plt.ylabel("Number of Bins")
 plt.title("Distribution of Predicted Probabilities")
 plt.tight_layout()
 plt.show()
+plt.savefig("outputs/probability_distribution.png", dpi=300)
+plt.close()
